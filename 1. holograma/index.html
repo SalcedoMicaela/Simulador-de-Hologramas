@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hologram 3D - Visualizador Interactivo</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <script async src="https://unpkg.com/es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+        "three/examples/jsm/controls/OrbitControls.js": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/controls/OrbitControls.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside id="controls">
+      <!-- Header Section -->
+      <div class="header-section">
+        <h1>✨ HOLOGRAM 3D</h1>
+        <p class="subtitle">Visualizador interactivo</p>
+      </div>
+
+      <div class="controls-container">
+        <!-- Sección Configuración Básica -->
+        <div class="control-section" id="basicSection">
+          <h3>🎭 Configuración Básica</h3>
+          <div class="control-group">
+            <label for="modeSelect">📺 Modo</label>
+            <select id="modeSelect">
+              <option value="object">🎯 Objeto 3D</option>
+              <option value="image">🖼️ Imagen</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="viewSelect">👁️ Vista</label>
+            <select id="viewSelect">
+              <option value="pyramid">📺 Pirámide (3D)</option>
+              <option value="flat">📋 Plana (4 caras)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="objectSelect">🔷 Objeto</label>
+            <select id="objectSelect">
+              <option value="sphere">⚪ Esfera</option>
+              <option value="pyramid">🔺 Pirámide</option>
+              <option value="diamond">💎 Diamante</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Sección Apariencia -->
+        <div class="control-section" id="appearanceSection">
+          <h3>🎨 Apariencia</h3>
+          
+          <div class="control-group">
+            <label for="colorPicker">Color</label>
+            <div class="color-wrapper">
+              <input type="color" id="colorPicker" value="#00ffff" class="color-input" />
+              <span class="color-label" id="colorLabel">#00ffff</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label for="scaleRange">Escala: <span id="scaleValue" class="value-display">1</span></label>
+            <input type="range" id="scaleRange" min="0.5" max="3" step="0.1" value="1" class="range-slider" />
+          </div>
+
+          <div class="control-group">
+            <label for="transparencyRange">Transparencia: <span id="transparencyValue" class="value-display">35%</span></label>
+            <input type="range" id="transparencyRange" min="0" max="0.95" step="0.01" value="0.35" class="range-slider" />
+          </div>
+
+          <div class="control-group">
+            <label for="intensityRange">Intensidad: <span id="intensityValue" class="value-display">1.2</span></label>
+            <input type="range" id="intensityRange" min="0.2" max="3" step="0.1" value="1.2" class="range-slider" />
+          </div>
+        </div>
+
+        <!-- Sección Imágenes -->
+        <div class="control-section" id="imageSection" style="display: none;">
+          <h3>🖼️ Caras del Holograma</h3>
+          <div id="imageInputs" class="image-grid">
+            <div class="image-upload">
+              <label for="imageFront">🔸 Frontal</label>
+              <input type="file" id="imageFront" accept=".png,.gif,image/png,image/gif" />
+            </div>
+            <div class="image-upload">
+              <label for="imageRight">🔹 Derecha</label>
+              <input type="file" id="imageRight" accept=".png,.gif,image/png,image/gif" />
+            </div>
+            <div class="image-upload">
+              <label for="imageBack">🔸 Trasera</label>
+              <input type="file" id="imageBack" accept=".png,.gif,image/png,image/gif" />
+            </div>
+            <div class="image-upload">
+              <label for="imageLeft">🔹 Izquierda</label>
+              <input type="file" id="imageLeft" accept=".png,.gif,image/png,image/gif" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección Controles -->
+        <div class="control-section">
+          <h3>🎮 Controles</h3>
+          <div class="buttons buttons-grid">
+            <button id="rotateToggle" class="btn btn-primary">🔄 Auto-rotar: ON</button>
+            <button id="zoomIn" class="btn btn-secondary">🔍+ Zoom +</button>
+            <button id="zoomOut" class="btn btn-secondary">🔍- Zoom -</button>
+            <button id="resetView" class="btn btn-secondary">↺ Reiniciar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="info-footer">
+        <p>💡 Arrastra para rotar • Rueda para zoom</p>
+      </div>
+    </aside>
+
+    <main id="viewer"></main>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html> 
