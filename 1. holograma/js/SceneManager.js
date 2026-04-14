@@ -45,6 +45,9 @@ export class SceneManager {
     this.animate();
 
     window.addEventListener('resize', () => this.onResize());
+    
+    // Añadir clase al contenedor para modo YouTube
+    this.container.classList.add('hologram-viewer');
   }
 
   setupLights() {

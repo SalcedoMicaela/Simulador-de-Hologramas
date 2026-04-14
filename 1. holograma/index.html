@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hologram 3D - Visualizador Interactivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Hologram 3D - Simulador de Holograma para YouTube</title>
   <link rel="stylesheet" href="./css/styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -19,89 +19,196 @@
 </head>
 <body>
   <div id="app">
+    <!-- Botón toggle para menú lateral -->
+    <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Botón para salir de pantalla completa -->
+    <button id="exitFullscreen" class="exit-fullscreen-btn" aria-label="Salir de pantalla completa">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="14" y1="10" x2="21" y2="3"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+      </svg>
+    </button>
+
     <aside id="controls">
       <!-- Header Section -->
       <div class="header-section">
-        <h1>✨ HOLOGRAM 3D</h1>
-        <p class="subtitle">Visualizador interactivo</p>
+        <div class="header-top">
+          <h1>
+            <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+              <line x1="12" y1="22" x2="12" y2="15.5"/>
+              <polyline points="22 8.5 12 15.5 2 8.5"/>
+              <polyline points="2 15.5 12 8.5 22 15.5"/>
+              <line x1="12" y1="2" x2="12" y2="8.5"/>
+            </svg>
+            HOLOGRAM 3D
+          </h1>
+          <button id="fullscreenToggle" class="fullscreen-btn" aria-label="Pantalla completa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+          </button>
+        </div>
+        <p class="subtitle">Simulador de holograma</p>
       </div>
 
       <div class="controls-container">
         <!-- Sección Configuración Básica -->
         <div class="control-section" id="basicSection">
-          <h3>🎭 Configuración Básica</h3>
+          <h3>
+            <svg class="section-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            Configuración Básica
+          </h3>
           <div class="control-group">
-            <label for="modeSelect">📺 Modo</label>
+            <label for="modeSelect">
+              <svg class="label-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+              Modo
+            </label>
             <select id="modeSelect">
-              <option value="object">🎯 Objeto 3D</option>
-              <option value="image">🖼️ Imagen</option>
+              <option value="object">Objeto 3D</option>
+              <option value="image">Imagen</option>
             </select>
           </div>
 
           <div class="control-group">
-            <label for="viewSelect">👁️ Vista</label>
+            <label for="viewSelect">
+              <svg class="label-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              Vista
+            </label>
             <select id="viewSelect">
-              <option value="pyramid">📺 Pirámide (3D)</option>
-              <option value="flat">📋 Plana (4 caras)</option>
+              <option value="pyramid">Pirámide (3D)</option>
+              <option value="flat">Plana (4 caras)</option>
             </select>
           </div>
 
           <div class="control-group">
-            <label for="objectSelect">🔷 Objeto</label>
+            <label for="objectSelect">
+              <svg class="label-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+              Objeto
+            </label>
             <select id="objectSelect">
-              <option value="sphere">⚪ Esfera</option>
-              <option value="pyramid">🔺 Pirámide</option>
-              <option value="diamond">💎 Diamante</option>
+              <option value="sphere">Esfera</option>
+              <option value="pyramid">Pirámide</option>
+              <option value="diamond">Diamante</option>
             </select>
           </div>
         </div>
 
         <!-- Sección Apariencia -->
         <div class="control-section" id="appearanceSection">
-          <h3>🎨 Apariencia</h3>
-          
+          <h3>
+            <svg class="section-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="13.5" cy="6.5" r="2.5"/>
+              <circle cx="17.5" cy="10.5" r="2.5"/>
+              <circle cx="8.5" cy="7.5" r="2.5"/>
+              <circle cx="6.5" cy="12.5" r="2.5"/>
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.5 17.461 2 12 2z"/>
+            </svg>
+            Apariencia
+          </h3>
+
           <div class="control-group">
             <label for="colorPicker">Color</label>
             <div class="color-wrapper">
               <input type="color" id="colorPicker" value="#00ffff" class="color-input" />
-              <span class="color-label" id="colorLabel">#00ffff</span>
+              <span class="color-label" id="colorLabel">#00FFFF</span>
             </div>
           </div>
 
           <div class="control-group">
-            <label for="scaleRange">Escala: <span id="scaleValue" class="value-display">1</span></label>
+            <label for="scaleRange">
+              Escala: <span id="scaleValue" class="value-display">1.0</span>
+            </label>
             <input type="range" id="scaleRange" min="0.5" max="3" step="0.1" value="1" class="range-slider" />
           </div>
 
           <div class="control-group">
-            <label for="transparencyRange">Transparencia: <span id="transparencyValue" class="value-display">35%</span></label>
+            <label for="transparencyRange">
+              Transparencia: <span id="transparencyValue" class="value-display">35%</span>
+            </label>
             <input type="range" id="transparencyRange" min="0" max="0.95" step="0.01" value="0.35" class="range-slider" />
           </div>
 
           <div class="control-group">
-            <label for="intensityRange">Intensidad: <span id="intensityValue" class="value-display">1.2</span></label>
+            <label for="intensityRange">
+              Intensidad: <span id="intensityValue" class="value-display">1.2</span>
+            </label>
             <input type="range" id="intensityRange" min="0.2" max="3" step="0.1" value="1.2" class="range-slider" />
           </div>
         </div>
 
         <!-- Sección Imágenes -->
         <div class="control-section" id="imageSection" style="display: none;">
-          <h3>🖼️ Caras del Holograma</h3>
+          <h3>
+            <svg class="section-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Caras del Holograma
+          </h3>
+          <p class="section-hint">Carga las 4 imágenes para crear la pirámide holográfica</p>
           <div id="imageInputs" class="image-grid">
             <div class="image-upload">
-              <label for="imageFront">🔸 Frontal</label>
+              <label for="imageFront">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+                Frontal
+              </label>
               <input type="file" id="imageFront" accept=".png,.gif,image/png,image/gif" />
             </div>
             <div class="image-upload">
-              <label for="imageRight">🔹 Derecha</label>
+              <label for="imageRight">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+                Derecha
+              </label>
               <input type="file" id="imageRight" accept=".png,.gif,image/png,image/gif" />
             </div>
             <div class="image-upload">
-              <label for="imageBack">🔸 Trasera</label>
+              <label for="imageBack">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 15 12 9 18 15"/>
+                </svg>
+                Trasera
+              </label>
               <input type="file" id="imageBack" accept=".png,.gif,image/png,image/gif" />
             </div>
             <div class="image-upload">
-              <label for="imageLeft">🔹 Izquierda</label>
+              <label for="imageLeft">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+                Izquierda
+              </label>
               <input type="file" id="imageLeft" accept=".png,.gif,image/png,image/gif" />
             </div>
           </div>
@@ -109,19 +216,77 @@
 
         <!-- Sección Controles -->
         <div class="control-section">
-          <h3>🎮 Controles</h3>
+          <h3>
+            <svg class="section-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="10 8 16 12 10 16 10 8"/>
+            </svg>
+            Controles
+          </h3>
           <div class="buttons buttons-grid">
-            <button id="rotateToggle" class="btn btn-primary">🔄 Auto-rotar: ON</button>
-            <button id="zoomIn" class="btn btn-secondary">🔍+ Zoom +</button>
-            <button id="zoomOut" class="btn btn-secondary">🔍- Zoom -</button>
-            <button id="resetView" class="btn btn-secondary">↺ Reiniciar</button>
+            <button id="rotateToggle" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+              Auto-rotar: ON
+            </button>
+            <button id="zoomIn" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="11" y1="8" x2="11" y2="14"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+              Zoom +
+            </button>
+            <button id="zoomOut" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+              Zoom -
+            </button>
+            <button id="resetView" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+              </svg>
+              Reiniciar
+            </button>
+          </div>
+        </div>
+
+        <!-- Sección Instrucciones -->
+        <div class="control-section info-section">
+          <h3>
+            <svg class="section-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            Cómo usar
+          </h3>
+          <div class="info-content">
+            <p>1. Selecciona el modo Objeto o Imagen</p>
+            <p>2. Elige la vista Pirámide o Plana</p>
+            <p>3. Ajusta color, escala y transparencia</p>
+            <p class="highlight">Arrastra para rotar • Rueda para zoom</p>
           </div>
         </div>
       </div>
 
       <!-- Footer -->
       <div class="info-footer">
-        <p>💡 Arrastra para rotar • Rueda para zoom</p>
+        <p>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 7V4H6v3M3 21h18M12 11v4M8 11v4M16 11v4"/>
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+          </svg>
+          Arrastra para rotar • Rueda para zoom
+        </p>
       </div>
     </aside>
 
@@ -130,4 +295,4 @@
 
   <script type="module" src="./js/main.js"></script>
 </body>
-</html> 
+</html>
