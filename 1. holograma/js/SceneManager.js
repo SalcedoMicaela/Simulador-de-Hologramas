@@ -168,33 +168,27 @@ export class SceneManager {
 
   // ── Imágenes fuente muy tenues (las "pantallas" de la pirámide) ──
   buildSourceImages(root) {
-    const textures = StateManager.imageTextures;
-    const configs = [
-      { key: 'front', ry: 0 },
-      { key: 'back',  ry: Math.PI },
-      { key: 'left',  ry: Math.PI / 2 },
-      { key: 'right', ry: -Math.PI / 2 },
-    ];
-    configs.forEach(({ key, ry }) => {
-      const tex = textures[key];
-      if (!tex) return;
-      const mesh = Helpers.createImageMesh(tex);
-      mesh.material.opacity = 0.06;
-      mesh.material.side = THREE.DoubleSide;
-      const dist = 1.1;
-      mesh.position.set(Math.sin(ry) * dist, 0.1, Math.cos(ry) * dist);
-      mesh.rotation.y = ry;
-      mesh.rotation.x = -Math.PI / 4;
-      root.add(mesh);
-    });
-  }
+  const tex = StateManager.imageTexture;
+  if (!tex) return;
+
+  const rotations = [0, Math.PI, Math.PI / 2, -Math.PI / 2];
+
+  rotations.forEach((ry) => {
+    const mesh = Helpers.createImageMesh(tex);
+    mesh.material.opacity = 0.06;
+    mesh.material.side = THREE.DoubleSide;
+    const dist = 1.1;
+    mesh.position.set(Math.sin(ry) * dist, 0.1, Math.cos(ry) * dist);
+    mesh.rotation.y = ry;
+    mesh.rotation.x = -Math.PI / 4;
+    root.add(mesh);
+  });
+}
 
   // ── PROYECCIÓN CENTRAL — la imagen flotando en el centro ─────
   buildCentralHologram(root) {
-    const textures = StateManager.imageTextures;
-    const mainTex =
-      textures.front || textures.back || textures.left || textures.right;
-    if (!mainTex) return;
+  const mainTex = StateManager.imageTexture;
+  if (!mainTex) return;
 
     const transparency = StateManager.transparency || 0;
     const baseOpacity = Math.max(0.65, (1 - transparency) * 0.90);
@@ -324,22 +318,25 @@ export class SceneManager {
   }
 
   buildImageFlatView() {
+    const texture = StateManager.imageTexture;
+    if (!texture) return;
+
     const group = new THREE.Group();
     const mapping = [
-      { key: 'front', x: 0,    y: 2.2,  rz: 0 },
-      { key: 'left',  x: -2.2, y: 0,    rz: Math.PI / 2 },
-      { key: 'right', x: 2.2,  y: 0,    rz: -Math.PI / 2 },
-      { key: 'back',  x: 0,    y: -2.2, rz: Math.PI },
+      { x: 0, y: 2.2, rz: 0 },
+      { x: -2.2, y: 0, rz: Math.PI / 2 },
+      { x: 2.2, y: 0, rz: -Math.PI / 2 },
+      { x: 0, y: -2.2, rz: Math.PI }
     ];
-    mapping.forEach(({ key, x, y, rz }) => {
-      const texture = StateManager.imageTextures[key];
-      if (!texture) return;
+
+    mapping.forEach(({ x, y, rz }) => {
       const mesh = Helpers.createImageMesh(texture);
       mesh.position.set(x, y, 0);
       mesh.rotation.z = rz;
       mesh.scale.multiplyScalar(0.7 * StateManager.scale);
       group.add(mesh);
     });
+
     this.contentGroup.add(group);
   }
 
@@ -399,9 +396,10 @@ export class SceneManager {
         StateManager.mode === 'object' ? 0.005 : 0.0032;
     }
 
-    Object.values(StateManager.gifData).forEach((gif) => {
-      if (gif && typeof gif.update === 'function') gif.update();
-    });
+    const gif = StateManager.gifData;
+    if (gif && typeof gif.update === 'function') {
+      gif.update();
+    }
 
     this.animateProjection(elapsed);
 

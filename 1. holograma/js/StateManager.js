@@ -8,17 +8,6 @@ export const StateManager = {
   intensity: 1.2,
   autoRotate: true,
 
-  imageTextures: {
-    front: null,
-    right: null,
-    back: null,
-    left: null
-  },
-
-  gifData: {
-    front: null,
-    right: null,
-    back: null,
-    left: null
-  }
+  imageTexture: null,
+  gifData: null
 };
